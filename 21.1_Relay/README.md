@@ -24,7 +24,7 @@ on the terminal:
 Starting with motor off
 ```
 
-Pressing an hold Button A on the MicroBit board will
+Pressing Button A on the MicroBit board will
 turn on the motor and `Motor is on` is added to the
 serial port output:
 ```
@@ -32,7 +32,7 @@ Starting with motor off
 Motor is on
 ```
 
-Upon Releasing Button A `Motor is off` is added:
+Pressing Button B `Motor is off` is added:
 ```
 Starting with motor off
 Motor is on
@@ -41,7 +41,7 @@ Motor is off
 
 # Notes
 
-Pressing Button A quickly sometimes causes the
+Pressing Button A/B quickly sometimes causes the
 program to start from the beginning!
 ```
 Starting with motor off

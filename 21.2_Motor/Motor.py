@@ -63,7 +63,7 @@ while True:
         adj_pot_value = potentiometer - STOP_FORWARD_THRESHOLD
         pot_relative = calculate_pot_relative(adj_pot_value)
         pin1.write_digital(0)
-        pin1.write_analog(pot_relative)
+        pin2.write_analog(pot_relative)
         pin2.set_analog_period(20)
         #print("FORWARD adj_pot_value: " + str(adj_pot_value) + " pot_relative: " + str(pot_relative))
         if motor_state != FORWARD or prev_pot_relative != pot_relative:

@@ -20,6 +20,13 @@ def calculate_pot_relative(adj_pot_value: int) -> int:
     #print("calculate_pot_relative: adj_pot_vlaue: " + str(adj_pot_value) + " float_value: " + str(float_value) + " int_value: " + str(int_value))
     return int_value
 
+def calculate_brightness(pot_relative: int) -> int:
+    assert(pot_relative >= 0 and pot_relative <= ANALOG_MAX)
+    float_value: float = (float(pot_relative) * POT_RELATIVE_TO_BRIGHTNESS)
+    int_value: int = int(float_value + 0.5)
+    #print("calculate_brightness: pot_relative: " + str(pot_relative) + " float_value: " + str(float_value) + " int_value: " + str(int_value))
+    return int_value
+
 UNDEFINED: int = 0
 STOPPED: int = 1
 FORWARD: int = 2
@@ -30,6 +37,7 @@ BAND_SIZE: int = 411
 STOP_REVERSE_THRESHOLD: int = BAND_SIZE
 STOP_FORWARD_THRESHOLD: int = ANALOG_MAX - BAND_SIZE
 BAND_SIZE_TO_POT_RELATIVE: float = float(ANALOG_MAX) / float(BAND_SIZE)
+POT_RELATIVE_TO_BRIGHTNESS: float = float(9) / float(ANALOG_MAX)
 
 motor_state: int = UNDEFINED
 pot_value: int = 0
@@ -55,9 +63,12 @@ while True:
         pin1.set_analog_period(20)
         #print("REVERSE adj_pot_value: " + str(adj_pot_value) + " pot_relative: " + str(pot_relative))
         if motor_state != REVERSE or prev_pot_relative != pot_relative:
-           print("Motor REVERSE: pot_relative: " + str(pot_relative))
-           motor_state = REVERSE
-           prev_pot_relative = pot_relative
+            print("Motor REVERSE: pot_relative: " + str(pot_relative))
+            motor_state = REVERSE
+            prev_pot_relative = pot_relative
+            display.set_pixel(0, 2, calculate_brightness(pot_relative))
+            display.set_pixel(2, 2, 0)
+            display.set_pixel(4, 2, 0)
     elif potentiometer >= STOP_FORWARD_THRESHOLD:
         # Motor foward
         adj_pot_value = potentiometer - STOP_FORWARD_THRESHOLD
@@ -70,6 +81,9 @@ while True:
             print("Motor FORWARD pot_relative: " + str(pot_relative))
             motor_state = FORWARD
             prev_pot_relative = pot_relative
+            display.set_pixel(0, 2, 0)
+            display.set_pixel(2, 2, 0)
+            display.set_pixel(4, 2, calculate_brightness(pot_relative))
     else:
         # Motor is stopped
         pin1.write_digital(1)
@@ -80,3 +94,6 @@ while True:
             print("Motor STOPPED: pot_relative: " + str(pot_relative))
             motor_state = STOPPED
             prev_pot_relative = pot_relative
+            display.set_pixel(0, 2, 0)
+            display.set_pixel(2, 2, 9)
+            display.set_pixel(4, 2, 0)

@@ -27,11 +27,14 @@ def calculate_brightness(pot_relative: int) -> int:
     #print("calculate_brightness: pot_relative: " + str(pot_relative) + " float_value: " + str(float_value) + " int_value: " + str(int_value))
     return int_value
 
+# Motor States
 UNDEFINED: int = 0
 STOPPED: int = 1
 FORWARD: int = 2
 REVERSE: int = 3
+motor_state: int = UNDEFINED
 
+# Constants
 ANALOG_MAX: int = 1023
 BAND_SIZE: int = 411
 STOP_REVERSE_THRESHOLD: int = BAND_SIZE
@@ -39,8 +42,7 @@ STOP_FORWARD_THRESHOLD: int = ANALOG_MAX - BAND_SIZE
 BAND_SIZE_TO_POT_RELATIVE: float = float(ANALOG_MAX) / float(BAND_SIZE)
 POT_RELATIVE_TO_BRIGHTNESS: float = float(9) / float(ANALOG_MAX)
 
-motor_state: int = UNDEFINED
-pot_value: int = 0
+
 prev_pot_relative: int = 0
 float_potentiometer: float = 0
 prev_float_potentiometer: float = 0

@@ -50,6 +50,13 @@ prev_float_potentiometer: float = 0
 print("")
 print("BAND_SIZE_TO_POT_RELATIVE: " + str(BAND_SIZE_TO_POT_RELATIVE))
 print("")
+
+# Disable LED so we can use pin3, pin4 and pin10
+display.off()
+#ping3.write_digital(1)
+#pin4.write_digital(0)
+#pin10.write_digital(1)
+
 while True:
     utime.sleep_ms(10)
     prev_float_potentiometer = float_potentiometer
@@ -68,9 +75,12 @@ while True:
             print("Motor REVERSE: pot_relative: " + str(pot_relative))
             motor_state = REVERSE
             prev_pot_relative = pot_relative
-            display.set_pixel(0, 2, calculate_brightness(pot_relative))
-            display.set_pixel(2, 2, 0)
-            display.set_pixel(4, 2, 0)
+            pin3.write_digital(0)
+            pin4.write_digital(1)
+            pin10.write_digital(0)
+            #display.set_pixel(0, 2, calculate_brightness(pot_relative))
+            #display.set_pixel(2, 2, 0)
+            #display.set_pixel(4, 2, 0)
     elif potentiometer >= STOP_FORWARD_THRESHOLD:
         # Motor foward
         adj_pot_value = potentiometer - STOP_FORWARD_THRESHOLD
@@ -83,9 +93,12 @@ while True:
             print("Motor FORWARD pot_relative: " + str(pot_relative))
             motor_state = FORWARD
             prev_pot_relative = pot_relative
-            display.set_pixel(0, 2, 0)
-            display.set_pixel(2, 2, 0)
-            display.set_pixel(4, 2, calculate_brightness(pot_relative))
+            pin3.write_digital(1)
+            pin4.write_digital(0)
+            pin10.write_digital(0)
+            #display.set_pixel(0, 2, 0)
+            #display.set_pixel(2, 2, 0)
+            #display.set_pixel(4, 2, calculate_brightness(pot_relative))
     else:
         # Motor is stopped
         pin1.write_digital(1)
@@ -96,6 +109,9 @@ while True:
             print("Motor STOPPED: pot_relative: " + str(pot_relative))
             motor_state = STOPPED
             prev_pot_relative = pot_relative
-            display.set_pixel(0, 2, 0)
-            display.set_pixel(2, 2, 9)
-            display.set_pixel(4, 2, 0)
+            pin3.write_digital(0)
+            pin4.write_digital(0)
+            pin10.write_digital(0)
+            #display.set_pixel(0, 2, 0)
+            #display.set_pixel(2, 2, 9)
+            #display.set_pixel(4, 2, 0)

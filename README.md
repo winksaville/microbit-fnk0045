@@ -10,6 +10,8 @@ it easy to see how the program runs. Therefore I'm
 licensing these under my favorite licenses Apache 2.0
 and or MIT.
 
+## Prerequisites
+
 I'm using minicom as the debug console for the microbit.
 On my Arch Linux system the microbit shows up as
 `/dev/ttyACM0` and I use the `minicom -D /dev/ttyACM0` to
@@ -22,6 +24,22 @@ $ cat ~/.minirc.microbit
 pu port             /dev/ttyACM0
 ```
 
+I created a [venv](https://docs.python.org/3/library/venv.html) micro-bit-uflash:
+```
+mkdir ~/venv/micro-bit-uflash
+python -m venv ~/venv/micro-bit-uflash
+```
+Installed https://pypi.org/project/uflash/
+```
+source ~/venv/micro-bit-uflash/bin/activate
+pip install uflash
+```
+
+## Examples
+
+Look in the [examples](examples) directory for for the
+various programs. And they'll be a README.md in each (TODO)
+
 ## License
 
 Licensed under either of
@@ -30,7 +48,6 @@ Licensed under either of
 - MIT license ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)
 
 ### Contribution
-
 Unless you explicitly state otherwise, any contribution intentionally submitted
 for inclusion in the work by you, as defined in the Apache-2.0 license, shall
 be dual licensed as above, without any additional terms or conditions.
